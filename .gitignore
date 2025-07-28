@@ -17,7 +17,6 @@ ENV/
 *.pyc
 *.sqlite3
 db.sqlite3
-media/
 staticfiles/
 local_settings.py
 
