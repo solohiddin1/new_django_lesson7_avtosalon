@@ -19,6 +19,7 @@ class Brand(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.TimeField(auto_now=True)
     context = models.TextField()
+    brand_salon = models.ForeignKey(Avtosalon,on_delete=models.CASCADE,default=16)
 
     def __str__(self):
         return self.title

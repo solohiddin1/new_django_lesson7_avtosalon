@@ -41,7 +41,7 @@ def add_brand(request):
     if request.method == "POST":
         form = BrandForm(request.POST)
         if form.is_valid():
-            Brand.objects.create(**form.cleaned_data)
+            form.save()
             return redirect('home')
     else:
         form = BrandForm()
@@ -51,8 +51,9 @@ def add_brand(request):
 
 def avtosalon_pk(request,pk):
     avtosalon = get_object_or_404(Avtosalon,pk = pk)
-    brands = Brand.objects.all()
+    brands = Brand.objects.filter(brand_salon = avtosalon)
     print('=======11111111111111>',brands)
+    print('=======11111111111111>',avtosalon)
     # cars = Cars.objects.all()
 
     context = {
@@ -62,20 +63,10 @@ def avtosalon_pk(request,pk):
     }
     return render(request,'avtosalon.html',context=context)
 
-# def avtosalon_brands(request):
-#     brand = Brand.objects.all()
-#     cars = Cars.objects.all()
-
-#     context = {
-#         'brand':brand,
-#         'cars':cars,
-#     }
-#     return render(request,'avtosalon.html',context=context)
-
 def avtosalon_brands(request,pk,car_pk):
     avtosalon = get_object_or_404(Avtosalon,pk=pk)
     print('------------->>>>>>>>>>',avtosalon,pk)
-    brands = Brand.objects.all()
+    brands = Brand.objects.filter(brand_salon = avtosalon)
     print('------------->>>>>>>>>>',brands,car_pk)
     cars = Cars.objects.filter(salon_id = pk,brand_id = car_pk)
     print('------------->>>>>>>>>>',cars)
@@ -86,3 +77,15 @@ def avtosalon_brands(request,pk,car_pk):
         'avtosalon':avtosalon   
     }
     return render(request,'avtosalon.html',context=context) 
+
+
+
+# def avtosalon_brands(request):
+#     brand = Brand.objects.all()
+#     cars = Cars.objects.all()
+
+#     context = {
+#         'brand':brand,
+#         'cars':cars,
+#     }
+#     return render(request,'avtosalon.html',context=context)
