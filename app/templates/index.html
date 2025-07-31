@@ -181,7 +181,7 @@
     <!-- Navbar -->
 
 
-<h3 class="text-center mb-4">Products List</h3>
+<h3 class="text-center mb-4">Avtosalon List</h3>
 <div class="container">
     {% for item in avtosalon %}
       <a href="{% url 'avtosalon_pk' item.pk %}" class="card">
@@ -197,12 +197,12 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">{{ item.title }}</h5>
-                        <p class="card-text"><strong>Price:</strong> {{ item.context }}</p>
+                        <p class="card-text"><strong>context:</strong> {{ item.context }}</p>
                         <p class="card-text"><strong>Email:</strong> {{ item.email }}</p>
                         <p class="card-text"><strong>Phone:</strong> {{ item.phone }}</p>
                         <p class="card-text"><strong>Address:</strong> {{ item.address }}</p>
-                        <p class="card-text"><small class="text-muted">Added on: {{ item.created_at }}</small></p>
-                        <p class="card-text"><small class="text-muted">Shipped on: {{ item.shipped_date }}</small></p>
+                        <p class="card-text"><small class="text-muted">Created at: {{ item.created_at }}</small></p>
+                        <p class="card-text"><small class="text-muted">Updated at: {{ item.updated_at }}</small></p>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@
     {% endfor %}
 </div>
 
-<i class="fa-regular fa-file"></i>
+<!-- <i class="fa-regular fa-file"></i> -->
 
 
 
