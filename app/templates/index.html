@@ -101,6 +101,10 @@
               <a class="nav-link" href="add_avtosalon">add Avtosalon</a>
             </li>
           </ul>
+          <form method="GET" action="">
+            <input type="text" name="q" placeholder="search avtosalon" value="{{query}}">
+            <button type="submit">search</button>
+          </form>
           <!-- Left links -->
         </div>
         <!-- Collapsible wrapper -->
@@ -208,6 +212,8 @@
             </div>
           </a>
         </div>
+      {% empty %}
+        <li>No avtosalon found</li>
     {% endfor %}
 </div>
 

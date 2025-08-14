@@ -44,26 +44,26 @@ class AvtosalonForm(forms.ModelForm):
             'image':'upload image',
         }
 
-    def clean_title(self):
-        title = self.cleaned_data['title']
-
-        if re.match(r'\d',title):
-            raise ValidationError('Title da raqam bolmasin!')
-        return title
+    # def clean_title(self):
+        # title = self.cleaned_data['title']
+# 
+        # if re.match(r'\d',title):
+            # raise ValidationError('Title da raqam bolmasin!')
+        # return title
     
-    def clean_email(self):
-        email = self.cleaned_data['email']
+    # def clean_email(self):
+    #     email = self.cleaned_data['email']
 
-        if re.match(r'[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+',email):
-            raise ValidationError('Togri emalil kiriting!')
-        return email
+    #     if re.match(r'[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+',email):
+    #         raise ValidationError('Togri emalil kiriting!')
+    #     return email
     
-    def clean_phone(self):
-        phone = self.cleaned_data['phone']
+    # def clean_phone(self):
+    #     phone = self.cleaned_data['phone']
 
-        if re.match(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$',phone):
-            raise ValidationError('togri telefon raqam kiriting!')        
-        return phone
+    #     if re.match(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$',phone):
+    #         raise ValidationError('togri telefon raqam kiriting!')        
+    #     return phone
 
 
 class CarForm(forms.Form):

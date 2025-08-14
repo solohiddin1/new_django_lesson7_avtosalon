@@ -2,15 +2,27 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.urls import path
 from .models import Cars, Avtosalon, Brand
 from .forms import CarForm,AvtosalonForm,BrandForm
+from django.db.models import Q
 
 # Create your views here.
 
 def home(request):
+    query = request.GET.get('q')
+
     avtosalon = Avtosalon.objects.all()
     cars = Cars.objects.all()
     brand = Brand.objects.all()
+    
+    
+    if query:
+        avtosalon = avtosalon.filter(
+            Q(title__icontains=query) |
+            Q(context__icontains=query)
+        )
+
     context = {
         'avtosalon':avtosalon,
+        'query': query,
 
     }
     return render(request,'index.html',context=context)
@@ -30,7 +42,8 @@ def add_avtosalon(request):
     if request.method == "POST":
         form = AvtosalonForm(request.POST,request.FILES)
         if form.is_valid():
-            Avtosalon.objects.create(**form.cleaned_data)
+            form.save()
+            # Avtosalon.objects.create(**form.cleaned_data)
             return redirect('home')
     else:
         form = AvtosalonForm()
