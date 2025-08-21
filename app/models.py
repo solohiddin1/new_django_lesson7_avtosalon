@@ -37,6 +37,7 @@ class Cars(Avtos):
     price = models.DecimalField(max_digits=12, decimal_places=2)
     year = models.PositiveIntegerField()
     color = models.CharField(max_length=30)
+    image = models.ImageField(upload_to='images',blank=True,null=True,default='default/car.png')
 
     def __str__(self):
         return self.model

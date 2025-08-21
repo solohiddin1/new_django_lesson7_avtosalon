@@ -54,3 +54,6 @@ coverage.xml
 # Pytest
 .pytest_cache/
 .cache/
+
+# images
+*.png

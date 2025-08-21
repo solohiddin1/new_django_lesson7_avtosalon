@@ -79,3 +79,8 @@ class CarForm(forms.Form):
     price = forms.DecimalField(max_digits=12,decimal_places=2)
     year = forms.IntegerField()
     color = forms.CharField(max_length=30)
+    image = forms.ImageField(
+        widget=forms.ClearableFileInput(
+            attrs={'class':'form-control-file'}),
+            label='image'
+            )

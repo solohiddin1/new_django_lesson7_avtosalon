@@ -126,58 +126,45 @@
       <!-- Container wrapper -->
     </nav>
 
-
-    {% load static %}
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-4">
-                <!-- list group -->
-                <ul class="list-group list-group-light">
-                    <li class="list-group-item px-3 border-0 active" aria-current="true">
-                        Brands List
-                    </li>
-                    {% for brand in brands %}
-                        <li class= "list-group-item px-3 border-0"> 
-                          <a href="{% url 'avtosalon_brands' pk=avtosalon.pk car_pk=brand.pk %}">
-                            {{ brand.title }}  </a>  
-                        </li>
-                    {% endfor %}
-                </ul> 
-            </div>
-              <div class="col-md-8">
-                <h3>Cars List</h3>
-                  {% if cars %}    
-                    {% for item in cars %}
-                        <div class="card mb-3">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-md-4 d-flex justify-content-center">                                  
-                                    {% if item.image %}
-                                    <img src="{{ item.image.url }}" alt="{{ item.title }}" class="img-fluid rounded-start" height="200px" width="auto">
+{% load static %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>{{car.brand}}  {{car.model}}</h3>
+            {% if car %}    
+                    <div class="card mb-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-4 d-flex justify-content-center">
+                                <!-- Placeholder for car image or additional info -->
+                            </div>
+                            <div class="col-md-4 d-flex justify-content-center">
+                                {% if car.image %}
+                                    <img src="{{ car.image.url }}" alt="{{ car.title }}" class="img-fluid rounded-start" height="200px" width="auto">
                                 {% else %}
                                     <img src="{% static 'default/car.png' %}" alt="default" class="img-fluid rounded-start" height="200px" width="auto">
                                 {% endif %}
                             </div>
                             <div class="col-md-8">
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Model:{{item.model}}</h5>
-                                        <p class="card-text">Price:{{item.price}}</p>
-                                        <p class="card-text">Yili: {{item.year}} </p>
-                                        <p class="card-text">Color: {{item.color}} </p>
-                                        <p class="card-text"><small class="text-muted"> {{item.created_at}} </small></p>
-                                        <p class="card-text"><small class="text-muted"> {{item.updated_at}} </small></p>
-                                        <button type="button" class="btn btn-info" data-mdb-ripple-init> <a href="{% url 'car_detail' item.pk %}">Batafsil</a></button>
-                                    </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Model: {{ car.model }}</h5>
+                                    <p class="card-text">Price: {{ car.price }}</p>
+                                    <p class="card-text">Year: {{ car.year }}</p>
+                                    <p class="card-text">Color: {{ car.color }}</p>
+                                    <p class="card-text"><small class="text-muted">{{ car.created_at }}</small></p>
+                                    <p class="card-text"><small class="text-muted">{{ car.updated_at }}</small></p>
+                                    <a href="{% url 'download_pdf' car.pk %}" class="btn btn-primary mt-3">
+                                        Download PDF
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                  {% endfor %}
-                {% else %}
-                  No cars
-                {% endif %}
-              </div>
-            </div>
+                    </div>
+            {% else %}
+                No car
+            {% endif %}
         </div>
+    </div>
+</div>
 <i class="fa-regular fa-file"></i>
 
 
