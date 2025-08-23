@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     home,add_avtosalon,add_brand,add_cars,
-    avtosalon_pk,avtosalon_brands,car_detail,download_pdf
+    avtosalon_pk,avtosalon_brands,car_detail,download_pdf,login_page
 )
 
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
 
     path('car_detail/<int:pk>',car_detail,name="car_detail"),
     path('download_pdf/<int:pk>',download_pdf,name="download_pdf"),
+    path('login',login_page,name="login"),
 ]
 
 # avtosalon/<int:pk>/brand/<int:car_pk>

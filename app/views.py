@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.urls import path
 from .models import Cars, Avtosalon, Brand
-from .forms import CarForm,AvtosalonForm,BrandForm
+from .forms import CarForm,AvtosalonForm,BrandForm,LoginForm
 from django.db.models import Q
 from django.http import HttpResponse
 # from django.response import response
@@ -14,9 +14,41 @@ from reportlab.lib.pagesizes import letter
 from django.conf import settings
 import os
 
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
 # Create your views here.
 
+def unathorized(view):
+    def wrapper(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('login')
+        else:
+            return view(request, *args, **kwargs)
+    return wrapper
+
+def login_page(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request,username=username,password=password)
+        print(user)
+        if user is not None:
+            login(request,user)
+            print('in')
+            return redirect('home')
+            messages.success(request,'ok')
+        
+        else:
+            messages.error(request,'no')
+    form = LoginForm()
+    return render(request,'login_page.html',{'form':form})
+
 def home(request):
+    print('home->',request.user)
+    if not request.user.is_authenticated:
+        return redirect('login')
     query = request.GET.get('q')
 
     avtosalon = Avtosalon.objects.all()
@@ -37,7 +69,10 @@ def home(request):
     }
     return render(request,'index.html',context=context)
 
+# @unathorized
 def add_cars(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
     if request.method == "POST":
         form = CarForm(request.POST,request.FILES)
         if form.is_valid():
